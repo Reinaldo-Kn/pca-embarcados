@@ -1,0 +1,10 @@
+.env/
+.venv/
+venv/
+dataset/
+dataset_lab/
+dataset_new/
+dataset_new/concatV3_resample.csv
+model/modelo_classificacao_dirty-2.pkl
+model/modelo_classificacao_dirty.pkl
+model/modelo_classificacao.pkl
