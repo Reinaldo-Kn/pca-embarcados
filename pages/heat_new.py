@@ -7,15 +7,14 @@ from sklearn.decomposition import PCA
 from dash_bootstrap_templates import load_figure_template
 import os
 import numpy as np
+from sklearn.preprocessing import StandardScaler
 # Initialize the app
 dash.register_page(__name__, path="/heat", name="Novo PCA Variação")
 
 load_figure_template(["yeti","yeti_dark"])
 
 # Load your dataset (replace 'concat.csv' with your actual path)
-dataset_patch = os.path.join('.','dataset_new')
-df_atual_df = os.path.join(dataset_patch,'concatv3.csv')
-df_main = pd.read_csv(df_atual_df)
+df_main = pd.read_csv('./dataset_lab/concatV6_40.csv')
 
 # Select features and labels
 features = df_main.columns[1:-1]
@@ -40,8 +39,13 @@ layout = html.Div([
     Input("slider", "value"))
 def run_and_plot(n_components):
     # PCA computation
+    
+    #use standard scaler
+    
+    x = StandardScaler().fit_transform(df_features)
+    
     pca_odor = PCA(n_components=n_components)
-    principalComponents_odor = pca_odor.fit_transform(df_features)
+    principalComponents_odor = pca_odor.fit_transform(x)
 
     # Explained variance
     total_var = pca_odor.explained_variance_ratio_.sum() * 100
